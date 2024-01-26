@@ -1,10 +1,25 @@
 #include "pickleserializer.hpp"
 
 #include <Python.h>
+#include <variant>
 
 using namespace Csdr::Eti;
 
-std::string PickleSerializer::serialize(std::map<std::string, std::string> metadata) {
+static PyObject* convertToPython(datatype data) {
+    if (std::holds_alternative<std::string>(data)) {
+        auto str = std::get<std::string>(data);
+        return PyUnicode_DecodeUTF8(str.c_str(), str.length(), "replace");
+    } else if (std::holds_alternative<uint64_t>(data)) {
+        return PyLong_FromUnsignedLongLong(std::get<uint64_t>(data));
+    } else if (std::holds_alternative<int64_t>(data)) {
+        return PyLong_FromLongLong(std::get<int64_t>(data));
+    } else if (std::holds_alternative<double>(data)) {
+        return PyFloat_FromDouble(std::get<double>(data));
+    }
+    return NULL;
+}
+
+std::string PickleSerializer::serialize(std::map<std::string, datatype> metadata) {
     // acquire GIL
     PyGILState_STATE gstate;
     gstate = PyGILState_Ensure();
@@ -19,7 +34,7 @@ std::string PickleSerializer::serialize(std::map<std::string, std::string> metad
     }
 
     for (auto entry: metadata) {
-        PyObject* value = PyUnicode_DecodeUTF8(entry.second.c_str(), entry.second.length(), "replace");
+        PyObject* value = convertToPython(entry.second);
         if (value == NULL) {
             if (PyErr_Occurred()) {
                 PyErr_PrintEx(0);
