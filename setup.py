@@ -39,6 +39,7 @@ setup(
                 "src/pickleserializer.cpp",
             ],
             language="c++",
+            extra_compile_args=["-std=c++17"],
             include_dirs=["src"] + additional_includes,
             libraries=["csdr-eti", "fftw3"],
             define_macros=[("VERSION", '"{}"'.format(version))],
