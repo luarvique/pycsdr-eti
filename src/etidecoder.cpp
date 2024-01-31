@@ -59,7 +59,7 @@ static PyType_Slot EtiDecoderSlots[] = {
 };
 
 PyType_Spec EtiDecoderSpec = {
-    "csdr-eti.modules.EtiDecoder",
+    "csdreti.modules.EtiDecoder",
     sizeof(EtiDecoder),
     0,
     Py_TPFLAGS_DEFAULT | Py_TPFLAGS_HAVE_FINALIZE,
