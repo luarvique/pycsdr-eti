@@ -18,15 +18,6 @@ static PyObject* getPyCsdrModulesModule() {
     return module;
 }
 
-static PyObject* getDigihamAmbeModule() {
-    PyObject* module = PyImport_ImportModule("digiham.ambe");
-    if (module == NULL) {
-        PyErr_Print();
-        exit(1);
-    }
-    return module;
-}
-
 PyTypeObject* getFormatType() {
     PyObject* module = getPyCsdrTypeModule();
 
@@ -91,74 +82,4 @@ PyTypeObject* getWriterType() {
     Py_DECREF(module);
 
     return (PyTypeObject*) WriterType;
-}
-
-PyTypeObject* getAmbeModeType() {
-    PyObject* module = getDigihamAmbeModule();
-
-    PyObject* ModeType = PyObject_GetAttrString(module, "Mode");
-    if (ModeType == NULL) {
-        PyErr_Print();
-        exit(1);
-    }
-
-    Py_DECREF(module);
-
-    return (PyTypeObject*) ModeType;
-}
-
-PyTypeObject* getAmbeTableModeType() {
-    PyObject* module = getDigihamAmbeModule();
-
-    PyObject* ModeType = PyObject_GetAttrString(module, "TableMode");
-    if (ModeType == NULL) {
-        PyErr_Print();
-        exit(1);
-    }
-
-    Py_DECREF(module);
-
-    return (PyTypeObject*) ModeType;
-}
-
-PyTypeObject* getAmbeControlWordModeType() {
-    PyObject* module = getDigihamAmbeModule();
-
-    PyObject* ModeType = PyObject_GetAttrString(module, "ControlWordMode");
-    if (ModeType == NULL) {
-        PyErr_Print();
-        exit(1);
-    }
-
-    Py_DECREF(module);
-
-    return (PyTypeObject*) ModeType;
-}
-
-PyTypeObject* getAmbeDynamicModeType() {
-    PyObject* module = getDigihamAmbeModule();
-
-    PyObject* ModeType = PyObject_GetAttrString(module, "DynamicMode");
-    if (ModeType == NULL) {
-        PyErr_Print();
-        exit(1);
-    }
-
-    Py_DECREF(module);
-
-    return (PyTypeObject*) ModeType;
-}
-
-PyTypeObject* getServerErrorType() {
-    PyObject* module = getDigihamAmbeModule();
-
-    PyObject* ServerErrorType = PyObject_GetAttrString(module, "ServerError");
-    if (ServerErrorType == NULL) {
-        PyErr_Print();
-        exit(1);
-    }
-
-    Py_DECREF(module);
-
-    return (PyTypeObject*) ServerErrorType;
 }
