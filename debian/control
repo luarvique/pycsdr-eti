@@ -4,11 +4,11 @@ Section: hamradio
 Priority: optional
 Rules-Requires-Root: no
 Standards-Version: 4.3.0
-Build-Depends: debhelper (>= 12), dh-python, python3-all (>= 3.5), libpython3-dev (>= 3.5), python3-setuptools, libcsdr-eti-dev (>= 0.1), python3-csdr (>= 0.19)
+Build-Depends: debhelper (>= 12), dh-python, python3-all (>= 3.5), libpython3-dev (>= 3.5), python3-setuptools, libcsdr-eti-dev (>= 0.0.9), python3-csdr (>= 0.18.18)
 
 Package: python3-csdr-eti
 Architecture: any
-Depends: libcsdr-eti0 (>= 0.1), ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}
+Depends: libcsdr-eti0 (>= 0.0.9), ${python3:Depends}, ${shlibs:Depends}, ${misc:Depends}
 Description: Python bindings for libcsdr-eti
  Python bindings for libcsdr-eti, allowing it's DAB ETI decoder to be used in
  python programs.
